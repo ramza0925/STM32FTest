@@ -11,6 +11,8 @@
 #define AHBPERIPH_BASE      (PERIPH_BASE + 0x20000)
 
 #define RCC_BASE            (AHBPERIPH_BASE + 0x1000)
+#define RCC                 ((RCC_TypeDef *) RCC_BASE)
+
 #define GPIOA_BASE          (APB2PERIPH_BASE + 0x0800)
 #define GPIOB_BASE          (APB2PERIPH_BASE + 0x0C00)
 #define GPIOC_BASE          (APB2PERIPH_BASE + 0x1000)
@@ -18,8 +20,6 @@
 #define GPIOE_BASE          (APB2PERIPH_BASE + 0x1800)
 #define GPIOF_BASE          (APB2PERIPH_BASE + 0x1C00)
 #define GPIOG_BASE          (APB2PERIPH_BASE + 0x2000)
-
-#define RCC                 ((RCC_TypeDef *) RCC_BASE)
 #define GPIOA               ((GPIO_TypeDef *)GPIOA_BASE)
 #define GPIOB               ((GPIO_TypeDef *)GPIOB_BASE)
 #define GPIOC               ((GPIO_TypeDef *)GPIOC_BASE)
@@ -27,6 +27,12 @@
 #define GPIOE               ((GPIO_TypeDef *)GPIOE_BASE)
 #define GPIOF               ((GPIO_TypeDef *)GPIOF_BASE)
 #define GPIOG               ((GPIO_TypeDef *)GPIOG_BASE)
+
+#define USART1_BASE         (APB2PERIPH_BASE + 0x3800)
+#define USART1              ((USART_TypeDef *) USART1_BASE)
+#define GPIO_USART          GPIOA
+#define GPIO_USART_Rx_Pin   GPIO_Pin_10
+#define GPIO_USART_Tx_Pin   GPIO_Pin_9
 
 #define RCC_APB2periph_AFIO     ((uint32_t)0x00000001)
 #define RCC_APB2periph_GPIOA    ((uint32_t)0x00000004)
@@ -62,7 +68,35 @@
 #define GPIO_Pin_15         ((uint16_t)0x8000)  //Pin 15 Selected
 #define GPIO_Pin_All        ((uint16_t)0xffff)  //Pin ALL Selected
 
-#define _IO                volatile
+#define USART_WordLength_8b                  ((uint16_t)0x0000)
+#define USART_WordLength_9b                  ((uint16_t)0x1000)
+
+#define USART_StopBits_1                     ((uint16_t)0x0000)
+#define USART_StopBits_0_5                   ((uint16_t)0x1000)
+#define USART_StopBits_2                     ((uint16_t)0x2000)
+#define USART_StopBits_1_5                   ((uint16_t)0x3000)
+
+#define USART_Parity_No                      ((uint16_t)0x0000)
+#define USART_Parity_Even                    ((uint16_t)0x0400)
+#define USART_Parity_Odd                     ((uint16_t)0x0600) 
+
+#define USART_HardwareFlowControl_None       ((uint16_t)0x0000)
+#define USART_HardwareFlowControl_RTS        ((uint16_t)0x0100)
+#define USART_HardwareFlowControl_CTS        ((uint16_t)0x0200)
+#define USART_HardwareFlowControl_RTS_CTS    ((uint16_t)0x0300)
+
+#define USART_Mode_Rx                        ((uint16_t)0x0004)
+#define USART_Mode_Tx                        ((uint16_t)0x0008)
+#define USART_FLAG_TXE                       ((uint16_t)0x0080) 
+
+#define HSI_Value                 ((uint32_t)8000000)
+
+#define CR1_UE_Set                ((uint16_t)0x2000)  /*!< USART Enable Mask */
+
+#define CR1_CLEAR_Mask            ((uint16_t)0xE9F3)  /*!< USART CR1 Mask */
+#define CR2_STOP_CLEAR_Mask       ((uint16_t)0xCFFF)  /*!< USART CR2 STOP Bits Mask */
+#define CR3_CLEAR_Mask            ((uint16_t)0xFCFF)  /*!< USART CR3 Mask */
+#define _IO                       volatile
 
 //Custom Define in this HW
 #define GPIO_LED            GPIOB
@@ -97,6 +131,12 @@ typedef enum{
     Bit_SET
 } BitAction;
 
+typedef enum
+{
+    RESET = 0,
+    SET = !RESET
+} FlagStatus;
+
 typedef struct{
     _IO uint32_t CR;
     _IO uint32_t CFGR;
@@ -130,6 +170,51 @@ typedef struct{
     GIOMode_TypeDef GPIO_Mode;
 } GPIO_InitTypeDef;
 
+typedef struct{
+    _IO uint16_t SR;
+    uint16_t RESERVED0;
+    _IO uint16_t DR;
+    int16_t RESERVED1;
+    _IO uint16_t BRR;
+    int16_t RESERVED2;
+    _IO uint16_t CR1;
+    int16_t RESERVED3;
+    _IO uint16_t CR2;
+    int16_t RESERVED4;
+    _IO uint16_t CR3;
+    int16_t RESERVED5;
+    _IO uint16_t GTPR;
+    int16_t RESERVED6;
+} USART_TypeDef;
+
+typedef struct
+{
+  uint32_t USART_BaudRate;            /*!< This member configures the USART communication baud rate.
+                                           The baud rate is computed using the following formula:
+                                            - IntegerDivider = ((PCLKx) / (16 * (USART_InitStruct->USART_BaudRate)))
+                                            - FractionalDivider = ((IntegerDivider - ((u32) IntegerDivider)) * 16) + 0.5 */
+
+  uint16_t USART_WordLength;          /*!< Specifies the number of data bits transmitted or received in a frame.
+                                           This parameter can be a value of @ref USART_Word_Length */
+
+  uint16_t USART_StopBits;            /*!< Specifies the number of stop bits transmitted.
+                                           This parameter can be a value of @ref USART_Stop_Bits */
+
+  uint16_t USART_Parity;              /*!< Specifies the parity mode.
+                                           This parameter can be a value of @ref USART_Parity
+                                           @note When parity is enabled, the computed parity is inserted
+                                                 at the MSB position of the transmitted data (9th bit when
+                                                 the word length is set to 9 data bits; 8th bit when the
+                                                 word length is set to 8 data bits). */
+ 
+  uint16_t USART_Mode;                /*!< Specifies wether the Receive or Transmit mode is enabled or disabled.
+                                           This parameter can be a value of @ref USART_Mode */
+
+  uint16_t USART_HardwareFlowControl; /*!< Specifies wether the hardware flow control mode is enabled
+                                           or disabled.
+                                           This parameter can be a value of @ref USART_Hardware_Flow_Control */
+} USART_InitTypeDef;
+
 void LED_On_Red (void);
 void LED_Off_Red (void);
 void LED_On_Yellow (void);
@@ -143,5 +228,6 @@ void LED_Test (void);
 void Key_test(void);
 void delay_1_second(void);
 void delay_100_milli_second(void);
+
 
 #endif

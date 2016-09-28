@@ -1,12 +1,12 @@
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\arm\bin\armproc.dll" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3_2\arm\bin\armproc.dll" 
 
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\arm\bin\armsim2.dll" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3_2\arm\bin\armsim2.dll" 
 
-"D:\005_Projectes\ARM\STM32FTest\Normal_program\project\Debug\Exe\STM32F_Test.out" 
+"D:\Projects\ARM\STM32F_Test\Normal_program\project\Debug\Exe\STM32F_Test.out" 
 
---plugin "C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\arm\bin\armbat.dll" 
+--plugin "C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3_2\arm\bin\armbat.dll" 
 
---device_macro "C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\arm\config\debugger\ST\STM32F1xx_XL.dmac" 
+--device_macro "C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3_2\arm\config\debugger\ST\STM32F1xx_XL.dmac" 
 
 
 

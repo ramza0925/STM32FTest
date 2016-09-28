@@ -25,7 +25,7 @@ if not "%~1" == "" goto debugFile
 
 @echo on 
 
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\common\bin\cspybat" -f "D:\005_Projectes\ARM\STM32FTest\Normal_program\project\settings\STM32F_Test.Debug.general.xcl" --backend -f "D:\005_Projectes\ARM\STM32FTest\Normal_program\project\settings\STM32F_Test.Debug.driver.xcl" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3_2\common\bin\cspybat" -f "D:\Projects\ARM\STM32F_Test\Normal_program\project\settings\STM32F_Test.Debug.general.xcl" --backend -f "D:\Projects\ARM\STM32F_Test\Normal_program\project\settings\STM32F_Test.Debug.driver.xcl" 
 
 @echo off 
 goto end 
@@ -34,7 +34,7 @@ goto end
 
 @echo on 
 
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\common\bin\cspybat" -f "D:\005_Projectes\ARM\STM32FTest\Normal_program\project\settings\STM32F_Test.Debug.general.xcl" "--debug_file=%~1" --backend -f "D:\005_Projectes\ARM\STM32FTest\Normal_program\project\settings\STM32F_Test.Debug.driver.xcl" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3_2\common\bin\cspybat" -f "D:\Projects\ARM\STM32F_Test\Normal_program\project\settings\STM32F_Test.Debug.general.xcl" "--debug_file=%~1" --backend -f "D:\Projects\ARM\STM32F_Test\Normal_program\project\settings\STM32F_Test.Debug.driver.xcl" 
 
 @echo off 
 :end
