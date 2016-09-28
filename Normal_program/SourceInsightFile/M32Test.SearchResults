@@ -1,0 +1,4 @@
+---- CRH Matches (3 in 2 files) ----
+Main.c (src):                GPIO_LED -> CRH &= ~(0xf << pinpos);
+Main.c (src):                GPIO_LED -> CRH |= tmpVal << pinpos;
+Platform_config.h (inc):    _IO uint32_t CRH;
