@@ -1,4 +1,4 @@
-"D:\Projects\ARM\STM32F_Test\Normal_program\src\key.c"
+"D:\Projects\ARM\STM32F_Test\Normal_program\src\seven_segment.c"
 -std=c99
 -ferror-limit=100
 -I

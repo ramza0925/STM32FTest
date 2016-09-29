@@ -2,6 +2,7 @@
 #define __PLATFORM_CONFOG_h__
 
 #include <stdint.h>
+#include <stdio.h>
 
 #define PERIPH_BASE         ((uint32_t)0x40000000)          //SRAM base address in the bit-band region
 
@@ -88,6 +89,7 @@
 #define USART_Mode_Rx                        ((uint16_t)0x0004)
 #define USART_Mode_Tx                        ((uint16_t)0x0008)
 #define USART_FLAG_TXE                       ((uint16_t)0x0080) 
+#define USART_FLAG_RXNE                      ((uint16_t)0x0020)
 
 #define HSI_Value                 ((uint32_t)8000000)
 
@@ -108,6 +110,16 @@
 #define GPIO_KEY1_PIN       GPIO_Pin_0  //left wkup
 #define GPIO_KEY2_PIN       GPIO_Pin_1  //right user
 
+#define GPIO_7_SEG              GPIOC
+#define GPIO_7_SEG_POWER_PIN    GPIO_Pin_8
+#define GPIO_7_SEG_A_PIN        GPIO_Pin_0
+#define GPIO_7_SEG_B_PIN        GPIO_Pin_1
+#define GPIO_7_SEG_C_PIN        GPIO_Pin_2
+#define GPIO_7_SEG_D_PIN        GPIO_Pin_3
+#define GPIO_7_SEG_E_PIN        GPIO_Pin_4
+#define GPIO_7_SEG_F_PIN        GPIO_Pin_5
+#define GPIO_7_SEG_G_PIN        GPIO_Pin_7
+#define GPIO_7_SEG_DP_PIN       GPIO_Pin_6
 
 typedef enum{
     GPIO_Speed_10Mhz =1,
@@ -226,6 +238,7 @@ void LED_Off_All (void);
 
 void LED_Test (void);
 void Key_test(void);
+void Seven_Segment_Test(void);
 void delay_1_second(void);
 void delay_100_milli_second(void);
 

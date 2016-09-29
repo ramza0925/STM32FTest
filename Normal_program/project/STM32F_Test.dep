@@ -2,93 +2,138 @@
 
 <project>
   <fileVersion>2</fileVersion>
-  <fileChecksum>2325122335</fileChecksum>
+  <fileChecksum>401353134</fileChecksum>
   <configuration>
     <name>Debug</name>
     <outputs>
-      <file>$PROJ_DIR$\startup_stm32f10x_md.s</file>
       <file>$PROJ_DIR$\Debug\Obj\main.o</file>
       <file>$TOOLKIT_DIR$\lib\rt7M_tl.a</file>
       <file>$PROJ_DIR$\Debug\Obj\main.__cstat.et</file>
-      <file>$PROJ_DIR$\Debug\List\STM32F_Test.map</file>
-      <file>$PROJ_DIR$\..\src\led.c</file>
-      <file>$PROJ_DIR$\..\src\key.c</file>
-      <file>$PROJ_DIR$\..\src\main.c</file>
-      <file>$PROJ_DIR$\Debug\Exe\STM32F_Test.out</file>
+      <file>$PROJ_DIR$\Debug\Obj\STM32F_Test.pbd</file>
+      <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\led.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdint.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\led.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
+      <file>$PROJ_DIR$\Debug\Exe\STM32F_Test.hex</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\xencoding_limits.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\key.pbi</file>
+      <file>$TOOLKIT_DIR$\lib\dl7M_tln.a</file>
+      <file>$PROJ_DIR$\startup_stm32f10x_md.s</file>
       <file>$PROJ_DIR$\Debug\Obj\key.o</file>
-      <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Threads.h</file>
+      <file>$PROJ_DIR$\Debug\List\STM32F_Test.map</file>
       <file>$PROJ_DIR$\Debug\Obj\startup_stm32f10x_md.o</file>
       <file>$TOOLKIT_DIR$\config\linker\ST\stm32f103xB.icf</file>
       <file>$TOOLKIT_DIR$\lib\shb_l.a</file>
+      <file>$PROJ_DIR$\..\src\key.c</file>
+      <file>$PROJ_DIR$\..\src\led.c</file>
       <file>$TOOLKIT_DIR$\lib\m7M_tl.a</file>
-      <file>$PROJ_DIR$\Debug\Obj\STM32F_Test.pbd</file>
-      <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
-      <file>$TOOLKIT_DIR$\inc\c\DLib_Threads.h</file>
-      <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
-      <file>$TOOLKIT_DIR$\inc\c\stdint.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
-      <file>$TOOLKIT_DIR$\inc\c\xencoding_limits.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\led.o</file>
-      <file>$PROJ_DIR$\Debug\Exe\STM32F_Test.hex</file>
-      <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
-      <file>$PROJ_DIR$\..\inc\platform_config.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\key.pbi</file>
-      <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\led.pbi</file>
-      <file>$TOOLKIT_DIR$\lib\dl7M_tln.a</file>
+      <file>$PROJ_DIR$\..\inc\Platform_config.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
+      <file>$PROJ_DIR$\Debug\Exe\STM32F_Test.out</file>
+      <file>$PROJ_DIR$\..\src\main.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\led.__cstat.et</file>
+      <file>$PROJ_DIR$\Debug\Obj\key.__cstat.et</file>
+      <file>$PROJ_DIR$\..\src\seven_segment.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\seven_segment.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\seven_segment.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdio.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\ystdio.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\ysizet.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Full.h</file>
+      <file>$TOOLKIT_DIR$\lib\dl7M_tlf.a</file>
     </outputs>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 27 18</file>
+        </tool>
+      </outputs>
+    </file>
     <file>
       <name>$PROJ_DIR$\startup_stm32f10x_md.s</name>
       <outputs>
         <tool>
           <name>AARM</name>
-          <file> 11</file>
+          <file> 19</file>
         </tool>
       </outputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\src\led.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 28</file>
-        </tool>
-        <tool>
-          <name>ICCARM</name>
-          <file> 22</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 21 19 18 24 17 16 25 27 10</file>
-        </tool>
-        <tool>
-          <name>ICCARM</name>
-          <file> 25 19 18 16 24 27 10 21 17</file>
-        </tool>
-      </inputs>
     </file>
     <file>
       <name>$PROJ_DIR$\..\src\key.c</name>
       <outputs>
         <tool>
-          <name>BICOMP</name>
-          <file> 26</file>
+          <name>ICCARM</name>
+          <file> 16</file>
         </tool>
         <tool>
-          <name>ICCARM</name>
-          <file> 9</file>
+          <name>BICOMP</name>
+          <file> 13</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 30</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>BICOMP</name>
-          <file> 21 19 18 24 17 16 25 27 10</file>
+          <name>ICCARM</name>
+          <file> 25 6 9 4 11 37 26 12 17 34 36 35</file>
         </tool>
         <tool>
+          <name>BICOMP</name>
+          <file> 9 37 4 6 26 36 34 11 12 17 25 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\led.c</name>
+      <outputs>
+        <tool>
           <name>ICCARM</name>
-          <file> 25 19 18 16 24 27 10 21 17</file>
+          <file> 7</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 5</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 29</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 25 6 9 4 11 37 26 12 17 34 36 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 4 9 37 6 26 36 34 11 12 17 25 35</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Debug\Exe\STM32F_Test.out</name>
+      <outputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 18</file>
+        </tool>
+        <tool>
+          <name>OBJCOPY</name>
+          <file> 10</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 20 16 7 0 32 19 21 1 24 38</file>
         </tool>
       </inputs>
     </file>
@@ -96,54 +141,49 @@
       <name>$PROJ_DIR$\..\src\main.c</name>
       <outputs>
         <tool>
-          <name>BICOMP</name>
-          <file> 20</file>
+          <name>ICCARM</name>
+          <file> 0</file>
         </tool>
         <tool>
-          <name>ICCARM</name>
-          <file> 1</file>
+          <name>BICOMP</name>
+          <file> 8</file>
         </tool>
         <tool>
           <name>__cstat</name>
-          <file> 3</file>
+          <file> 2</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>BICOMP</name>
-          <file> 16 18 17 19 24 21 27 10 25</file>
+          <name>ICCARM</name>
+          <file> 25 6 9 4 11 37 26 12 17 34 36 35</file>
         </tool>
         <tool>
-          <name>ICCARM</name>
-          <file> 25 19 18 16 24 27 10 21 17</file>
+          <name>BICOMP</name>
+          <file> 9 34 37 36 6 4 26 25 11 12 17 35</file>
         </tool>
       </inputs>
     </file>
     <file>
-      <name>[ROOT_NODE]</name>
+      <name>$PROJ_DIR$\..\src\seven_segment.c</name>
       <outputs>
         <tool>
-          <name>ILINK</name>
-          <file> 8 4</file>
-        </tool>
-      </outputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\Debug\Exe\STM32F_Test.out</name>
-      <outputs>
-        <tool>
-          <name>ILINK</name>
-          <file> 4</file>
+          <name>ICCARM</name>
+          <file> 32</file>
         </tool>
         <tool>
-          <name>OBJCOPY</name>
-          <file> 23</file>
+          <name>BICOMP</name>
+          <file> 33</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ILINK</name>
-          <file> 12 9 22 1 11 13 2 14 29</file>
+          <name>ICCARM</name>
+          <file> 25 6 9 4 11 37 26 12 17 34 36 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 9 26 4 6 34 37 36 25 11 12 17 35</file>
         </tool>
       </inputs>
     </file>

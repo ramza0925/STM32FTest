@@ -116,6 +116,14 @@ void GPIO_Configuration(void){
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50Mhz;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
     GPIO_Init(GPIO_LED, &GPIO_InitStructure);
+
+    //Configuration gpio as output: LED1, LED2, LED3
+    GPIO_InitStructure.GPIO_Pin = GPIO_7_SEG_POWER_PIN|GPIO_7_SEG_A_PIN|GPIO_7_SEG_B_PIN|GPIO_7_SEG_C_PIN|
+                                GPIO_7_SEG_D_PIN|GPIO_7_SEG_E_PIN|GPIO_7_SEG_F_PIN|GPIO_7_SEG_G_PIN|
+                                GPIO_7_SEG_DP_PIN;
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50Mhz;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+    GPIO_Init(GPIO_7_SEG,&GPIO_InitStructure);
 }
 
 void USART_Init(USART_TypeDef* USARTx, USART_InitTypeDef* USART_InitStruct){
@@ -212,11 +220,54 @@ void Serial_PutString(uint8_t *s){
     }
 }
 
+int fputc(int ch, FILE *f){
+    //Write a character to the USART
+    if(ch == '\n'){
+        USART_SendData(USART1, '\r');
+        while(USART_GetFlagStatus(USART1,USART_FLAG_TXE) == RESET);
+        USART_SendData(USART1, '\n');
+    }       
+    else {
+        USART_SendData(USART1, (uint8_t)ch);
+    }
+
+    //Loop until the end of transmission
+    while(USART_GetFlagStatus(USART1,USART_FLAG_TXE) == RESET);
+    return ch;
+}
+
+uint16_t USART_ReceiveData(USART_TypeDef* USARTx){
+    //Receive Data
+    return (uint16_t)(USARTx->DR & (uint16_t)0x01ff);
+}
+
+uint8_t USART_GetCharacter(USART_TypeDef* uasrt_p){
+    uint8_t data;
+
+    //loop until the end of transmission
+    while(USART_GetFlagStatus(uasrt_p,USART_FLAG_RXNE) == RESET);
+
+    //Write a character to the USART
+    data = USART_ReceiveData(uasrt_p);
+
+    USART_SendData(uasrt_p, data);
+    while(USART_GetFlagStatus(uasrt_p,USART_FLAG_TXE) == RESET);
+
+    if(data == '\r')    return (int)('\n');
+    else                return(data);
+}
+
+void System_Information(){
+    printf("USART1->BRR : 0x%08X\n", USART1->BRR);
+}
+
 int main(void){
-    
+
+    uint8_t ch;
     
     RCC->APB2ENR |= RCC_APB2periph_GPIOA;
-	RCC->APB2ENR |= RCC_APB2periph_GPIOB;
+    RCC->APB2ENR |= RCC_APB2periph_GPIOB;
+    RCC->APB2ENR |= RCC_APB2periph_GPIOC;
     RCC->APB2ENR |= RCC_APB2periph_USART1;
 
     GPIO_Configuration();
@@ -224,9 +275,40 @@ int main(void){
     USART1_Init();
 
     Serial_PutString("\r\nHello World! Hello Cortex-M3!\r\n");
+    printf("Hello Cortex-M3! with printf\n");
 
-    
-    //LED_Test();
-    Key_test();
-    while(1);
+    while(1){
+        printf("\n----------------------\n");
+        printf("Press menu key\n");
+        printf("----------------------\n");
+        printf("0> System Information\n");
+        printf("----------------------\n");
+        printf("1> LED Test\n");
+        printf("2> KEY Test\n");
+        printf("3> 7-Segment Test\n");
+        printf("----------------------\n");
+        printf("x> Quit\n");
+
+        ch = USART_GetCharacter(USART1);
+        printf(" is selected\n\n");
+
+        switch((char)ch){
+            case '0':
+                System_Information();
+                break;
+            case '1':
+                LED_Test();
+                break;
+            case '2':
+                Key_test();
+                break;
+            case '3':
+                Seven_Segment_Test();
+                break;
+        }
+
+        if('x' == (char)ch){
+            break;
+        }
+    }
 }
