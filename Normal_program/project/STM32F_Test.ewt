@@ -2097,6 +2097,9 @@
   <group>
     <name>src</name>
     <file>
+      <name>$PROJ_DIR$\..\src\hw_config.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\src\key.c</name>
     </file>
     <file>
@@ -2106,13 +2109,13 @@
       <name>$PROJ_DIR$\..\src\main.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\inc\Platform_config.h</name>
-    </file>
-    <file>
       <name>$PROJ_DIR$\..\src\seven_segment.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\startup_stm32f10x_md.s</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\stm.c</name>
     </file>
   </group>
 </project>

@@ -1,4 +1,4 @@
-"D:\Projects\ARM\STM32F_Test\Normal_program\src\led.c"
+"D:\Projects\ARM\STM32F_Test\Normal_program\src\hw_config.c"
 -std=c99
 -ferror-limit=100
 -I
