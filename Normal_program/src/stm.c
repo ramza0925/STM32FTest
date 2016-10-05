@@ -13,91 +13,6 @@
 
 /* functions */
 
-#define CFGR_SWS_Mask           ((uint32)0x0000000C)
-#define CFGR_PLLMull_Mask       ((uint32)0x003C0000)
-#define CFGR_PLLSRC_Mask        ((uint32)0x00010000)
-#define CFGR_PLLXTPRE_Mask      ((uint32)0x00020000)
-#define CFGR_HPRE_Set_Mask      ((uint32)0x000000f0)
-#define CFGR_PPRE1_Set_Mask      ((uint32)0x00000700)
-#define CFGR_PPRE2_Set_Mask      ((uint32)0x00003800)
-#define CFGR_ADCPRE_Set_Mask    ((uint32)0x0000c000)
-
-
-static __I uint8 APBAHBPPrescTable[16] = {0,0,0,0,1,2,3,4,1,2,3,4,6,7,8,9};
-static __I uint8 ADCprescTable[4] = {2,4,6,8};
-
-
-void RCC_GetClocksFreq(RCC_ClocksTypeDef * RCC_Clocks)
-{
-    uint32 tmp = 0, pllmull = 0, pllsource = 0, presc = 0;
-
-    /** Get SYSCLK source*/
-    tmp = RCC->CFGR & CFGR_SWS_Mask;
-
-    switch(tmp)
-    {
-        case 0x00:
-            RCC_Clocks->SYSCLK_Frequency = HSI_Value;
-            break;
-        case 0x04:
-            RCC_Clocks->SYSCLK_Frequency = HSE_Value;
-            break;
-        case 0x08:  //PLL used as system clock
-            pllmull = RCC->CFGR & CFGR_PLLMull_Mask;
-            pllsource = RCC->CFGR & CFGR_PLLSRC_Mask;
-
-            pllmull = (pllmull >> 18) +2;
-            if(pllsource == 0x00)
-            {
-                RCC_Clocks->SYSCLK_Frequency = (HSI_Value >> 1) * pllmull;
-            }
-            else
-            {
-                if((RCC->CFGR & CFGR_PLLXTPRE_Mask) != (uint32)RESET)
-                {
-                    RCC_Clocks->SYSCLK_Frequency = (HSE_Value >>1) * pllmull;
-                }
-                else
-                {
-                     RCC_Clocks->SYSCLK_Frequency = HSE_Value * pllmull;
-                }
-            } 
-            break;
-        default:
-            RCC_Clocks->SYSCLK_Frequency = HSI_Value;
-            break;
-    }
-
-    //Get HCLK Prescaler
-    tmp = RCC->CFGR & CFGR_HPRE_Set_Mask;
-    tmp = tmp >> 4;
-    presc = APBAHBPPrescTable[tmp];
-    //HCLK clock frequency
-    RCC_Clocks->HCLK_Frequency = RCC_Clocks->SYSCLK_Frequency>>presc;
-
-    //Get PCLK1 prescaler
-    tmp = RCC->CFGR & CFGR_PPRE1_Set_Mask;
-    tmp = tmp >> 8;
-    presc = APBAHBPPrescTable[tmp];
-    //PCLK1 clock frequenty
-    RCC_Clocks->PCLK1_Frequency = RCC_Clocks->HCLK_Frequency >> presc;
-
-    //Get PCLK2 prescaler
-    tmp = RCC->CFGR & CFGR_PPRE2_Set_Mask;
-    tmp = tmp >> 11;
-    presc = APBAHBPPrescTable[tmp];
-    //PCLK2 clock frequenty
-    RCC_Clocks->PCLK2_Frequency = RCC_Clocks->HCLK_Frequency >> presc;
-
-    //Get ADCClk prescaler
-    tmp = RCC->CFGR & CFGR_ADCPRE_Set_Mask;
-    tmp = tmp >> 14;
-    presc = ADCprescTable[tmp];
-    //ADCCLK clock frequency
-    RCC_Clocks->ADCCLK_Frequency = RCC_Clocks->PCLK2_Frequency / presc;
-    
-}
-
 uint8_t GPIO_ReadInputDataBit(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
 {
     uint8_t bitstatus = 0x00;
@@ -138,6 +53,94 @@ FlagStatus USART_GetFlagStatus(USART_TypeDef* USARTx, uint16_t USART_FLAG)
     bitstatus = RESET;
   }
   return bitstatus;
+}
+
+#define CFGR_SWS_Mask             ((uint32_t)0x0000000C)
+#define CFGR_PLLMull_Mask         ((uint32_t)0x003C0000)
+#define CFGR_PLLSRC_Mask          ((uint32_t)0x00010000)
+#define CFGR_PLLXTPRE_Mask        ((uint32_t)0x00020000)
+#define CFGR_HPRE_Set_Mask        ((uint32_t)0x000000F0)
+#define CFGR_PPRE1_Set_Mask       ((uint32_t)0x00000700)
+#define CFGR_PPRE2_Set_Mask       ((uint32_t)0x00003800)
+#define CFGR_ADCPRE_Set_Mask      ((uint32_t)0x0000C000)
+
+static __I uint8_t APBAHBPrescTable[16] = {0, 0, 0, 0, 1, 2, 3, 4, 1, 2, 3, 4, 6, 7, 8, 9};
+static __I uint8_t ADCPrescTable[4] = {2, 4, 6, 8};
+
+void RCC_GetClocksFreq(RCC_ClocksTypeDef* RCC_Clocks)
+{
+  uint32_t tmp = 0, pllmull = 0, pllsource = 0, presc = 0;
+    
+  /* Get SYSCLK source -------------------------------------------------------*/
+  tmp = RCC->CFGR & CFGR_SWS_Mask;
+  
+  switch (tmp)
+  {
+    case 0x00:  /* HSI used as system clock */
+      RCC_Clocks->SYSCLK_Frequency = HSI_Value;
+      break;
+
+    case 0x04:  /* HSE used as system clock */
+      RCC_Clocks->SYSCLK_Frequency = HSE_Value;
+      break;
+
+    case 0x08:  /* PLL used as system clock */
+      /* Get PLL clock source and multiplication factor ----------------------*/
+      pllmull = RCC->CFGR & CFGR_PLLMull_Mask;
+      pllsource = RCC->CFGR & CFGR_PLLSRC_Mask;
+      
+      pllmull = ( pllmull >> 18) + 2;
+      
+      if (pllsource == 0x00)
+      {/* HSI oscillator clock divided by 2 selected as PLL clock entry */
+        RCC_Clocks->SYSCLK_Frequency = (HSI_Value >> 1) * pllmull;
+      }
+      else
+      {/* HSE selected as PLL clock entry */
+        if ((RCC->CFGR & CFGR_PLLXTPRE_Mask) != (uint32_t)RESET)
+        {/* HSE oscillator clock divided by 2 */
+          RCC_Clocks->SYSCLK_Frequency = (HSE_Value >> 1) * pllmull;
+        }
+        else
+        {
+          RCC_Clocks->SYSCLK_Frequency = HSE_Value * pllmull;
+        }
+      }
+      break;
+
+    default:
+      RCC_Clocks->SYSCLK_Frequency = HSI_Value;
+      break;
+  }
+
+  /* Compute HCLK, PCLK1, PCLK2 and ADCCLK clocks frequencies ----------------*/
+  /* Get HCLK prescaler */
+  tmp = RCC->CFGR & CFGR_HPRE_Set_Mask;
+  tmp = tmp >> 4;
+  presc = APBAHBPrescTable[tmp];
+  /* HCLK clock frequency */
+  RCC_Clocks->HCLK_Frequency = RCC_Clocks->SYSCLK_Frequency >> presc;
+
+  /* Get PCLK1 prescaler */
+  tmp = RCC->CFGR & CFGR_PPRE1_Set_Mask;
+  tmp = tmp >> 8;
+  presc = APBAHBPrescTable[tmp];
+  /* PCLK1 clock frequency */
+  RCC_Clocks->PCLK1_Frequency = RCC_Clocks->HCLK_Frequency >> presc;
+
+  /* Get PCLK2 prescaler */
+  tmp = RCC->CFGR & CFGR_PPRE2_Set_Mask;
+  tmp = tmp >> 11;
+  presc = APBAHBPrescTable[tmp];
+  /* PCLK2 clock frequency */
+  RCC_Clocks->PCLK2_Frequency = RCC_Clocks->HCLK_Frequency >> presc;
+
+  /* Get ADCCLK prescaler */
+  tmp = RCC->CFGR & CFGR_ADCPRE_Set_Mask;
+  tmp = tmp >> 14;
+  presc = ADCPrescTable[tmp];
+  /* ADCCLK clock frequency */
+  RCC_Clocks->ADCCLK_Frequency = RCC_Clocks->PCLK2_Frequency / presc;
 }
 
 void USART_Init(USART_TypeDef* USARTx, USART_InitTypeDef* USART_InitStruct)
@@ -275,5 +278,29 @@ void GPIO_Init(GPIO_TypeDef* GPIOx, GPIO_InitTypeDef* GPIO_InitStruct)
     }
     GPIOx->CRH = tmpreg;
   }
+}
+
+void NVIC_SetPriority(IRQn_Type IRQn, uint32_t priority)
+{
+  if(IRQn < 0) {
+    SCB->SHP[((uint32_t)(IRQn) & 0xF)-4] = ((priority << (8 - __NVIC_PRIO_BITS)) & 0xff); } /* set Priority for Cortex-M3 System Interrupts */
+  else {
+    NVIC->IP[(uint32_t)(IRQn)] = ((priority << (8 - __NVIC_PRIO_BITS)) & 0xff);    }        /* set Priority for device specific Interrupts      */
+}
+
+uint32_t SysTick_Config(uint32_t ticks)
+{ 
+  if (ticks > SYSTICK_MAXCOUNT)  return (1);                                             /* Reload value impossible */
+
+  SysTick->LOAD  =  (ticks & SYSTICK_MAXCOUNT) - 1;                                      /* set reload register */
+  NVIC_SetPriority (SysTick_IRQn, (1<<__NVIC_PRIO_BITS) - 1);                            /* set Priority for Cortex-M0 System Interrupts */
+  SysTick->VAL   =  (0x00);                                                              /* Load the SysTick Counter Value */
+  SysTick->CTRL = (1 << SYSTICK_CLKSOURCE) | (1<<SYSTICK_ENABLE) | (1<<SYSTICK_TICKINT); /* Enable SysTick IRQ and SysTick Timer */
+  return (0);                                                                            /* Function successful */
+}
+
+void SysTick_Handler(void)
+{
+    TimingDelay_Decrement();
 }
 

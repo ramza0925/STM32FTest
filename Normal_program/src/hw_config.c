@@ -11,21 +11,20 @@
 
 #include "hw_config.h"
 
-/* functions */
+/* global variables */
 
-static void delay_int_count(volatile unsigned int nTime)
-{
-    for(; nTime > 0; nTime--);
-}
+static volatile uint32_t TimingDelay;
+
+/* functions */
 
 void delay_1_second(void)
 {
-    delay_int_count(806596);
+    Delay(1000);
 }
 
 void delay_100_milli_second(void)
 {
-    delay_int_count(80660);
+    Delay(100);
 }
 
 void SerialPutChar(uint8_t c)
@@ -129,6 +128,20 @@ void RCC_Configuration(void)
     while ((RCC->CFGR & (uint32_t)RCC_CFGR_SWS) != (uint32_t)0x08){;}
 }
 
+#define NVIC_VectTab_RAM             ((uint32_t)0x20000000)
+#define NVIC_VectTab_FLASH           ((uint32_t)0x08000000)
+
+void NVIC_SetVectorTable(uint32_t NVIC_VectTab, uint32_t Offset)
+{ 
+  SCB->VTOR = NVIC_VectTab | (Offset & (uint32_t)0x1FFFFF80);
+}
+
+void NVIC_Configuration(void)
+{ 
+    /* Set the Vector Table base location at 0x08000000 */ 
+    NVIC_SetVectorTable(NVIC_VectTab_FLASH, 0x0);   
+}
+
 /*
  * Name   : GPIO_Configuration
  * Input  : None
@@ -171,6 +184,31 @@ void GPIO_Configuration(void)
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
     GPIO_Init(GPIO_LED, &GPIO_InitStructure);
+}
+
+/**
+  * @brief  Inserts a delay time.
+  * @param  nTime: specifies the delay time length, in milliseconds.
+  * @retval None
+  */
+void Delay(__IO uint32_t nTime)
+{ 
+  TimingDelay = nTime;
+
+  while(TimingDelay != 0);
+}
+
+/**
+  * @brief  Decrements the TimingDelay variable.
+  * @param  None
+  * @retval None
+  */
+void TimingDelay_Decrement(void)
+{
+  if (TimingDelay != 0x00)
+  { 
+    TimingDelay--;
+  }
 }
 
 #ifdef __GNUC__

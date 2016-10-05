@@ -18,10 +18,6 @@
 
 /* defines */
 
-#define uint8 uint8_t
-#define uint16 uint16_t
-#define uint32 uint32_t
-
 #define GPIO_LED             GPIOB
 #define GPIO_KEY             GPIOA
 #define GPIO_USART           GPIOA
@@ -55,9 +51,13 @@ void delay_1_second(void);
 void delay_100_milli_second(void);
 
 void RCC_Configuration(void);
+void NVIC_Configuration(void);
 void GPIO_Configuration(void);
 void USART1_Init(void);
 uint8_t USART_GetCharacter(USART_TypeDef *  usart_p);
+
+void Delay(__IO uint32_t nTime);
+void TimingDelay_Decrement(void);
 
 #endif  /* __HW_CONFIG_H */
 
