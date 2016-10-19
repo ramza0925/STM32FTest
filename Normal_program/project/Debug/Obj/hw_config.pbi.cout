@@ -1,14 +1,14 @@
-"D:\Projects\ARM\STM32F_Test\Normal_program\src\hw_config.c"
+"D:\005_Projectes\ARM\STM32FTest\Normal_program\src\hw_config.c"
 -std=c99
 -ferror-limit=100
 -I
-D:\Projects\ARM\STM32F_Test\Normal_program\project\..\inc
+D:\005_Projectes\ARM\STM32FTest\Normal_program\project\..\inc
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\arm\inc
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\arm\inc\c
 -I
-D:\Projects\ARM\STM32F_Test\Normal_program\inc
+D:\005_Projectes\ARM\STM32FTest\Normal_program\inc
 -D__CHAR_BITS__=8
 -D__CHAR_MAX__=0xff
 -D__CHAR_MIN__=0

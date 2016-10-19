@@ -6,20 +6,32 @@
   <configuration>
     <name>Debug</name>
     <outputs>
-      <file>$PROJ_DIR$\Debug\Exe\STM32_Simple_Project.out</file>
       <file>$PROJ_DIR$\..\..\src\main.c</file>
       <file>$PROJ_DIR$\Debug\Obj\main.o</file>
+      <file>$PROJ_DIR$\Debug\Exe\STM32_Simple_Project.out</file>
       <file>$PROJ_DIR$\Debug\Obj\STM32_Simple_Project.pbd</file>
-      <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
-      <file>$TOOLKIT_DIR$\doc\infocenter\index.ENU.html</file>
       <file>$PROJ_DIR$\Debug\Exe\STM32_Simple_Project.hex</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
     </outputs>
+    <file>
+      <name>$PROJ_DIR$\..\..\src\main.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 5</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 1</file>
+        </tool>
+      </outputs>
+    </file>
     <file>
       <name>[ROOT_NODE]</name>
       <outputs>
         <tool>
           <name>ILINK</name>
-          <file> 0</file>
+          <file> 2</file>
         </tool>
       </outputs>
     </file>
@@ -28,20 +40,7 @@
       <outputs>
         <tool>
           <name>OBJCOPY</name>
-          <file> 6</file>
-        </tool>
-      </outputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\src\main.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
           <file> 4</file>
-        </tool>
-        <tool>
-          <name>ICCARM</name>
-          <file> 2</file>
         </tool>
       </outputs>
     </file>

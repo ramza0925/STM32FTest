@@ -1,14 +1,14 @@
-"D:\Projects\ARM\STM32F_Test\Normal_program\src\seven_segment.c"
+"D:\005_Projectes\ARM\STM32FTest\Normal_program\src\seven_segment.c"
 -std=c99
 -ferror-limit=100
 -I
-D:\Projects\ARM\STM32F_Test\Normal_program\project\..\inc
+D:\005_Projectes\ARM\STM32FTest\Normal_program\project\..\inc
 -I
-C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3_2\arm\inc
+C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\arm\inc
 -I
-C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3_2\arm\inc\c
+C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\arm\inc\c
 -I
-D:\Projects\ARM\STM32F_Test\Normal_program\inc
+D:\005_Projectes\ARM\STM32FTest\Normal_program\inc
 -D__CHAR_BITS__=8
 -D__CHAR_MAX__=0xff
 -D__CHAR_MIN__=0
@@ -235,8 +235,8 @@ D:\Projects\ARM\STM32F_Test\Normal_program\inc
 -D__EDG_SYSV=0
 -D__EDG_ANSIC=1
 -D__EDG_CPP11_IL_EXTENSIONS_SUPPORTED=1
--D_DLIB_CONFIG_FILE_HEADER_NAME="C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3_2\arm\INC\c\DLib_Config_Full.h"
--D_DLIB_CONFIG_FILE_STRING="C:\\Program Files (x86)\\IAR Systems\\Embedded Workbench 7.3_2\\arm\\INC\\c\\DLib_Config_Full.h"
+-D_DLIB_CONFIG_FILE_HEADER_NAME="C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\arm\INC\c\DLib_Config_Full.h"
+-D_DLIB_CONFIG_FILE_STRING="C:\\Program Files (x86)\\IAR Systems\\Embedded Workbench 7.3\\arm\\INC\\c\\DLib_Config_Full.h"
 -D__VERSION__="IAR ANSI C/C++ Compiler V7.50.2.10312/W32 for ARM"
 -D__CODE_MEMORY_LIST1__()=__CODE_MEM_HELPER1__(__code, 0 )
 -D__CODE_MEMORY_LIST2__(_P1)=__CODE_MEM_HELPER2__(__code, 0 ,  _P1 )
